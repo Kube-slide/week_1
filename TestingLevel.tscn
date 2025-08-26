@@ -21,7 +21,11 @@ shape = SubResource("RectangleShape2D_wiie4")
 
 [node name="PlayerBall" parent="." instance=ExtResource("1_7bx8y")]
 position = Vector2(366, 664)
+gravitySpeed = 15.0
+basicRotationSpeed = 0.1
 
 [node name="Camera2D" type="Camera2D" parent="PlayerBall"]
 position = Vector2(-6, -24)
-position_smoothing_enabled = true
+ignore_rotation = false
+zoom = Vector2(3, 3)
+rotation_smoothing_speed = 10.0
