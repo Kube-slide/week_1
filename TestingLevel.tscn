@@ -16,7 +16,6 @@ size = Vector2(500, 10)
 
 [node name="PlayerBall" parent="." instance=ExtResource("1_7bx8y")]
 physics_material_override = SubResource("PhysicsMaterial_3oome")
-gravity_scale = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="PlayerBall"]
 zoom = Vector2(3, 3)
