@@ -2,11 +2,7 @@
 
 [ext_resource type="Script" uid="uid://vq0y7hbs5c5l" path="res://Scripts/Rotate_Level.gd" id="1_3oome"]
 [ext_resource type="PackedScene" uid="uid://c0yno7gw5ifia" path="res://Scenes/player_ball.tscn" id="1_7bx8y"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2s4q4"]
-friction = 0.5
-rough = true
-bounce = 0.25
+[ext_resource type="PackedScene" uid="uid://bo53d1qoxqmp8" path="res://Scenes/Spike.tscn" id="3_q3ya3"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3oome"]
 size = Vector3(500, 10, 1)
@@ -16,15 +12,13 @@ size = Vector2(500, 9)
 
 [node name="TestingLevel" type="Node2D"]
 
-[node name="PlayerBall" parent="." node_paths=PackedStringArray("spawnLoc", "worldMap") instance=ExtResource("1_7bx8y")]
-physics_material_override = SubResource("PhysicsMaterial_2s4q4")
-gravity_scale = 0.75
+[node name="RigidBody2D" parent="." node_paths=PackedStringArray("spawnLoc", "worldMap") instance=ExtResource("1_7bx8y")]
+position = Vector2(0, -265)
 can_sleep = false
-max_contacts_reported = 50
 spawnLoc = NodePath("../Spawn")
 worldMap = NodePath("../LevelContainer")
 
-[node name="Camera2D" type="Camera2D" parent="PlayerBall"]
+[node name="Camera2D" type="Camera2D" parent="RigidBody2D"]
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 position_smoothing_speed = 15.0
@@ -32,21 +26,21 @@ rotation_smoothing_speed = 10.0
 
 [node name="LevelContainer" type="Node2D" parent="."]
 script = ExtResource("1_3oome")
-rotateStrength = 100.0
-rotateSmoothing = 5.0
+rotateStrength = 125.0
 
 [node name="Floor" type="StaticBody2D" parent="LevelContainer"]
 collision_priority = 2.0
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="LevelContainer/Floor"]
-position = Vector2(0, 177.58)
 mesh = SubResource("BoxMesh_3oome")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelContainer/Floor"]
-position = Vector2(0, 177.5)
+position = Vector2(0, -0.0800018)
 shape = SubResource("RectangleShape2D_q3ya3")
+debug_color = Color(0.653603, 0.518009, 0, 0.42)
+
+[node name="Spike" parent="LevelContainer" instance=ExtResource("3_q3ya3")]
+position = Vector2(-182, 168)
 
 [node name="Spawn" type="Node2D" parent="."]
 position = Vector2(0, -184)
-
-[connection signal="body_entered" from="PlayerBall" to="PlayerBall" method="_on_body_entered"]
