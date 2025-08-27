@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://cplpc8xjiq42c"]
+
+[ext_resource type="Script" uid="uid://vq0y7hbs5c5l" path="res://Scripts/Rotate_Level.gd" id="1_3oome"]
+[ext_resource type="PackedScene" uid="uid://c0yno7gw5ifia" path="res://Scenes/player_ball.tscn" id="1_7bx8y"]
+[ext_resource type="PackedScene" uid="uid://bo53d1qoxqmp8" path="res://Scenes/Spike.tscn" id="3_q3ya3"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3oome"]
+bounce = 0.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_3oome"]
+size = Vector3(500, 10, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wiie4"]
+size = Vector2(500, 10)
+
+[node name="TestingLevel" type="Node2D"]
+
+[node name="PlayerBall" parent="." node_paths=PackedStringArray("spawnLoc", "worldMap") instance=ExtResource("1_7bx8y")]
+physics_material_override = SubResource("PhysicsMaterial_3oome")
+can_sleep = false
+continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 5
+spawnLoc = NodePath("../Spawn")
+worldMap = NodePath("../LevelContainer")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerBall"]
+zoom = Vector2(3, 3)
+rotation_smoothing_speed = 10.0
+
+[node name="LevelContainer" type="Node2D" parent="."]
+script = ExtResource("1_3oome")
+rotateStrength = 0.75
+rotateSmoothing = 8.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelContainer"]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="LevelContainer/StaticBody2D"]
+position = Vector2(0, 177.58)
+mesh = SubResource("BoxMesh_3oome")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelContainer/StaticBody2D"]
+position = Vector2(0, 177.58)
+shape = SubResource("RectangleShape2D_wiie4")
+
+[node name="Spike" parent="LevelContainer" instance=ExtResource("3_q3ya3")]
+position = Vector2(-118, 168)
+
+[node name="Spawn" type="Node2D" parent="."]
+position = Vector2(0, -184)
+
+[connection signal="body_entered" from="PlayerBall" to="PlayerBall" method="_on_body_entered"]
