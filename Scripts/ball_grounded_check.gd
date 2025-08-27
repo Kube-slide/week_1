@@ -16,6 +16,8 @@ func _on_body_entered(body: Node) -> void:
 
 func ResetPos() -> void:
 	position = spawnLoc.global_position
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0
 	visible = !visible
 	set_deferred("freeze", false)
 	deathFlag = false

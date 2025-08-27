@@ -11,7 +11,7 @@ func _physics_process(delta):
 		else:
 			playerInputs = lerpf(playerInputs, clamp(round(Input.get_accelerometer().x / 2), -1, 1), rotateSmoothing * delta)
 			print("Rotation speed: " + str(playerInputs) + " | Device sensor: " + str(Input.get_accelerometer().length()))
-	rotate(deg_to_rad(playerInputs) * rotateStrength) 
+	rotate(deg_to_rad(playerInputs) * rotateStrength * delta) 
 
 func ResetRotation() -> void:
 	rotation = 0
