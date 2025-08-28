@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cplpc8xjiq42c"]
+[gd_scene load_steps=9 format=3 uid="uid://cplpc8xjiq42c"]
 
 [ext_resource type="Script" uid="uid://vq0y7hbs5c5l" path="res://Scripts/Rotate_Level.gd" id="1_3oome"]
 [ext_resource type="PackedScene" uid="uid://c0yno7gw5ifia" path="res://Scenes/player_ball.tscn" id="1_7bx8y"]
+[ext_resource type="Script" uid="uid://bbvajoxt7yanx" path="res://Scenes/LevelManager.gd" id="2_tjl7f"]
 [ext_resource type="PackedScene" uid="uid://bo53d1qoxqmp8" path="res://Scenes/Spike.tscn" id="3_q3ya3"]
-[ext_resource type="PackedScene" uid="uid://bwc4apgf17eo1" path="res://Scenes/StarCollectible.tscn" id="4_2s4q4"]
-[ext_resource type="Script" uid="uid://drrbowh6n2lbs" path="res://Scripts/star_collectible.gd" id="5_wcgye"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3ya3"]
 bounce = 0.15
@@ -19,13 +18,14 @@ size = Vector2(500, 9)
 
 [node name="TestingLevel" type="Node2D"]
 
-[node name="RigidBody2D" parent="." node_paths=PackedStringArray("spawnLoc", "worldMap") instance=ExtResource("1_7bx8y")]
+[node name="RigidBody2D" parent="." node_paths=PackedStringArray("spawnLoc", "worldMap", "levelManager") instance=ExtResource("1_7bx8y")]
 position = Vector2(0, -265)
 physics_material_override = SubResource("PhysicsMaterial_q3ya3")
 linear_damp_mode = 1
 angular_damp_mode = 1
 spawnLoc = NodePath("../Spawn")
 worldMap = NodePath("../LevelContainer/Floor")
+levelManager = NodePath("../LevelContainer")
 
 [node name="Camera2D" type="Camera2D" parent="RigidBody2D"]
 zoom = Vector2(3, 3)
@@ -34,6 +34,8 @@ position_smoothing_speed = 15.0
 rotation_smoothing_speed = 10.0
 
 [node name="LevelContainer" type="Node2D" parent="."]
+script = ExtResource("2_tjl7f")
+starSpawnPositions = Array[Vector2]([Vector2(1.435, 5.455), Vector2(15, 2), Vector2(-5, -4)])
 
 [node name="Floor" type="AnimatableBody2D" parent="LevelContainer"]
 collision_layer = 8
@@ -56,13 +58,8 @@ position = Vector2(-177, -8.99997)
 [node name="Spike2" parent="LevelContainer/Floor" instance=ExtResource("3_q3ya3")]
 position = Vector2(109, -9)
 
-[node name="StarCollectible" parent="LevelContainer/Floor" instance=ExtResource("4_2s4q4")]
-position = Vector2(41, -19)
-script = ExtResource("5_wcgye")
-
 [node name="Spawn" type="Node2D" parent="."]
 position = Vector2(-1, -299)
 
-[connection signal="body_entered" from="RigidBody2D" to="LevelContainer/Floor/StarCollectible" method="_on_rigid_body_2d_body_entered"]
 [connection signal="body_entered" from="LevelContainer/Floor/Spike" to="RigidBody2D" method="_on_spike_body_entered"]
 [connection signal="body_entered" from="LevelContainer/Floor/Spike2" to="RigidBody2D" method="_on_spike_body_entered"]
