@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=60
 config/icon="res://icon.svg"
 
+[debug]
+
+shapes/collision/contact_color=Color(1, 0.2, 0.101961, 0.215686)
+
 [debug_draw_3d]
 
 settings/addon_root_folder="res://addons/debug_draw_3d"
