@@ -7,7 +7,7 @@ var deathFlag : bool = false
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_pressed("reset"):
-		ResetPos()
+		_on_spike_body_entered(null)
 
 #func _physics_process(delta: float) -> void:
 	#if floorColCheck.collision_result != []:
@@ -19,20 +19,22 @@ func _input(event: InputEvent) -> void:
 
 
 func ResetPos() -> void:
-	global_position = spawnLoc.global_position
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0
 	visible = true
 	set_deferred("freeze", false)
 	deathFlag = false
-	worldMap.ResetRotation()
+	worldMap.resetRot = true
 	worldMap.rotationEnabled = true
+	global_position = spawnLoc.global_position
+	
 
 
 func _on_death_timer_timeout() -> void:
 	ResetPos()
 
-func _on_spike_body_entered(body):
+
+func _on_spike_body_entered(body: Node2D) -> void:
 	if !deathFlag:
 		deathFlag = true
 		linear_velocity = Vector2.ZERO
@@ -41,3 +43,7 @@ func _on_spike_body_entered(body):
 		set_deferred("freeze", true)
 		deathTimer.start()
 		worldMap.rotationEnabled = false
+
+
+func _on_star_collectible_area_entered(area: Area2D) -> void:
+	print("aaa")
