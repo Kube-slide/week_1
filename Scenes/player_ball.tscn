@@ -1,10 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0yno7gw5ifia"]
+[gd_scene load_steps=7 format=3 uid="uid://c0yno7gw5ifia"]
 
 [ext_resource type="Script" uid="uid://cf8lh7bt8e0n1" path="res://Scripts/ball_grounded_check.gd" id="1_nw751"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rfcgh"]
+friction = 0.75
+bounce = 0.2
 
 [sub_resource type="SphereMesh" id="SphereMesh_rfcgh"]
 radius = 4.5
 height = 9.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_rfcgh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m38xh"]
 radius = 4.0
@@ -12,7 +18,12 @@ radius = 4.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_rfcgh"]
 
 [node name="RigidBody2D" type="RigidBody2D"]
+collision_mask = 14
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_rfcgh")
 gravity_scale = 0.848
+inertia = 95.0
+can_sleep = false
 continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 999
@@ -22,6 +33,11 @@ script = ExtResource("1_nw751")
 position = Vector2(-1.78814e-07, 0)
 scale = Vector2(0.889897, 0.888889)
 mesh = SubResource("SphereMesh_rfcgh")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="."]
+position = Vector2(-1.78814e-07, -3.27778)
+scale = Vector2(0.889897, 7.44444)
+mesh = SubResource("BoxMesh_rfcgh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_m38xh")

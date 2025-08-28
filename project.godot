@@ -13,6 +13,7 @@ config_version=5
 config/name="week_1"
 run/main_scene="uid://cplpc8xjiq42c"
 config/features=PackedStringArray("4.4", "Forward Plus")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [debug_draw_3d]
@@ -48,12 +49,19 @@ reset={
 
 sensors/enable_accelerometer=true
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Spikes"
+2d_physics/layer_3="Stars"
+2d_physics/layer_4="Floor"
+
 [physics]
 
-2d/solver/default_contact_bias=0.5
-2d/solver/default_constraint_bias=0.35
+common/physics_ticks_per_second=120
 
 [rendering]
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
+anti_aliasing/quality/msaa_2d=3

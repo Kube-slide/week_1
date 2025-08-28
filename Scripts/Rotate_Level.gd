@@ -3,6 +3,8 @@ extends Node2D
 var playerInputs : float = 0
 @export var rotateSmoothing : float = 2
 var rotationEnabled : bool = true
+var gravDir : Vector2 = Vector2.DOWN
+
 
 func _physics_process(delta):
 	if rotationEnabled:
@@ -14,4 +16,5 @@ func _physics_process(delta):
 	rotate(deg_to_rad(playerInputs) * rotateStrength * delta) 
 
 func ResetRotation() -> void:
+	playerInputs = 0
 	rotation = 0

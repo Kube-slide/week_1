@@ -1,16 +1,15 @@
 [gd_scene load_steps=2 format=3 uid="uid://bo53d1qoxqmp8"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_vehyf"]
-size = Vector3(1, -1, 1)
+size = Vector3(10, -10, 0)
 
-[node name="Spike" type="Node2D"]
-scale = Vector2(10, 10)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Spike" type="Area2D"]
 collision_layer = 2
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 mesh = SubResource("PrismMesh_vehyf")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(-0.4, 0.5, 0, -0.4, 0.4, 0.5)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-1.19209e-07, 0.34809)
+scale = Vector2(3.90625, 3.03819)
+polygon = PackedVector2Array(-1.024, 1.53114, 3.05176e-08, -1.43114, 1.024, 1.53114)
