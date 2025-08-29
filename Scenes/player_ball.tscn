@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://c0yno7gw5ifia"]
 
-[ext_resource type="Script" uid="uid://cf8lh7bt8e0n1" path="res://Scripts/ball_grounded_check.gd" id="1_nw751"]
+[ext_resource type="Script" uid="uid://cf8lh7bt8e0n1" path="res://Scripts/Player.gd" id="1_nw751"]
 [ext_resource type="Texture2D" uid="uid://nnbhnugsog31" path="res://Assets/Pause.svg" id="2_k40wh"]
 [ext_resource type="Texture2D" uid="uid://bm6oiskpm8lij" path="res://Assets/Reset.svg" id="2_m38xh"]
 [ext_resource type="Texture2D" uid="uid://b763u8of4wo7x" path="res://Assets/Player.svg" id="4_d8u08"]
@@ -102,21 +102,60 @@ grow_horizontal = 2
 text = "Paused"
 label_settings = SubResource("LabelSettings_rfcgh")
 
-[node name="Pause" type="Button" parent="CanvasLayer"]
-process_mode = 3
-anchors_preset = 1
-anchor_left = 1.0
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Resume" type="Button" parent="CanvasLayer/PauseScreen/VBoxContainer"]
+process_mode = 2
+layout_mode = 2
+text = "Resume"
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/PauseScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 2.08
+
+[node name="MainMenu" type="Button" parent="CanvasLayer/PauseScreen/VBoxContainer"]
+process_mode = 2
+layout_mode = 2
+text = "Quit to Main Menu"
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = -155.0
-offset_top = 58.0
-offset_right = 653.0
-offset_bottom = 866.0
-grow_horizontal = 0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pause" type="Button" parent="CanvasLayer/HUD"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.95
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.05
+offset_left = -101.088
+offset_right = 706.912
+offset_bottom = 808.0
 scale = Vector2(0.125, 0.125)
 theme_type_variation = &"FlatButton"
 icon = ExtResource("2_k40wh")
 
-[node name="Retry" type="Button" parent="CanvasLayer"]
+[node name="Retry" type="Button" parent="CanvasLayer/HUD"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.05
 anchor_top = 0.05
@@ -133,5 +172,7 @@ scale = Vector2(0.01, 0.01)
 texture = ExtResource("4_d8u08")
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
-[connection signal="pressed" from="CanvasLayer/Pause" to="." method="_on_pause_pressed"]
-[connection signal="pressed" from="CanvasLayer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseScreen/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseScreen/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/HUD/Pause" to="." method="_on_pause_pressed"]
+[connection signal="pressed" from="CanvasLayer/HUD/Retry" to="." method="_on_retry_pressed"]

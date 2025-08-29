@@ -17,7 +17,7 @@ func ClearStars() -> void:
 func InstantiateStars() -> void:
 	for i in range(starSpawnPositions.size()):
 		var obj = starObj.instantiate()
-		add_child(obj)
+		get_child(0).add_child(obj)
 		obj.position = starSpawnPositions[i]
 		obj.name = "Star" + str(i)
 		starCollection.push_back(obj)

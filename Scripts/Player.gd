@@ -5,6 +5,8 @@ extends RigidBody2D
 @onready var winParticles : CPUParticles2D = $Win
 @onready var deathParticles : CPUParticles2D = $Loss
 @onready var pauseScreen : ColorRect = $CanvasLayer/PauseScreen
+@onready var playerSprite : Sprite2D = $Sprite2D
+@onready var playerHUD : Control = $CanvasLayer/HUD
 
 @onready var deathTimer : Timer = $DeathTimer
 var deathFlag : bool = false
@@ -23,8 +25,10 @@ func ResetPos() -> void:
 	worldMap.resetRot = true
 	worldMap.rotationEnabled = true
 	global_position = spawnLoc.global_position
+	rotation = 0
 	levelManager.ClearStars()
 	levelManager.InstantiateStars()
+	playerSprite.self_modulate.a = 255
 
 
 func _on_death_timer_timeout() -> void:
@@ -32,11 +36,11 @@ func _on_death_timer_timeout() -> void:
 
 func _on_spike_body_entered(_body: Node2D) -> void:
 	if !deathFlag:
+		playerSprite.self_modulate.a = 0
 		deathParticles.emitting = true
 		deathFlag = true
 		linear_velocity = Vector2.ZERO
 		angular_velocity = 0
-		visible = false
 		set_deferred("freeze", true)
 		deathTimer.start()
 		worldMap.rotationEnabled = false
@@ -57,5 +61,17 @@ func _on_retry_pressed() -> void:
 
 
 func _on_pause_pressed() -> void:
-	get_tree().paused = !get_tree().paused
-	pauseScreen.visible = !pauseScreen.visible
+	get_tree().paused = true
+	pauseScreen.visible = true
+	playerHUD.visible = false
+
+
+func _on_resume_pressed() -> void:
+	get_tree().paused = false
+	pauseScreen.visible = false
+	playerHUD.visible = true
+
+
+func _on_main_menu_pressed() -> void:
+	print("goto main menu")
+	pass # Replace with function body.

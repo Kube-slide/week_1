@@ -34,7 +34,7 @@ rotation_smoothing_speed = 10.0
 
 [node name="LevelContainer" type="Node2D" parent="."]
 script = ExtResource("2_tjl7f")
-starSpawnPositions = Array[Vector2]([Vector2(1.435, 5.455), Vector2(15, 2), Vector2(-5, -4)])
+starSpawnPositions = Array[Vector2]([Vector2(-275, -53), Vector2(225, -21), Vector2(-229, -19)])
 
 [node name="Floor" type="AnimatableBody2D" parent="LevelContainer"]
 collision_layer = 8
@@ -75,6 +75,9 @@ debug_color = Color(0.653603, 0.518009, 0, 0.42)
 
 [node name="LevelFinishFlag" parent="LevelContainer/Floor" instance=ExtResource("5_wcgye")]
 position = Vector2(447, 27)
+
+[node name="StarPlacementHelper" type="Node2D" parent="LevelContainer"]
+position = Vector2(-229, -19)
 
 [node name="Spawn" type="Node2D" parent="."]
 position = Vector2(-1, -299)
