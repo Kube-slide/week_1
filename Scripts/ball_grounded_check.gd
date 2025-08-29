@@ -2,6 +2,8 @@ extends RigidBody2D
 @export var spawnLoc : Node2D
 @export var worldMap : Node2D
 @export var levelManager : Node2D
+@onready var winParticles : CPUParticles2D = $Win
+@onready var deathParticles : CPUParticles2D = $Loss
 
 @onready var deathTimer : Timer = $DeathTimer
 var deathFlag : bool = false
@@ -36,3 +38,7 @@ func _on_spike_body_entered(_body: Node2D) -> void:
 		set_deferred("freeze", true)
 		deathTimer.start()
 		worldMap.rotationEnabled = false
+
+
+func _on_level_finish_flag_body_entered(body: Node2D) -> void:
+	winParticles.emitting = true

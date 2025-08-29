@@ -4,10 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c0yno7gw5ifia" path="res://Scenes/player_ball.tscn" id="1_7bx8y"]
 [ext_resource type="Script" uid="uid://bbvajoxt7yanx" path="res://Scenes/LevelManager.gd" id="2_tjl7f"]
 [ext_resource type="PackedScene" uid="uid://bo53d1qoxqmp8" path="res://Scenes/Spike.tscn" id="3_q3ya3"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3ya3"]
-rough = true
-bounce = 0.2
+[ext_resource type="PackedScene" uid="uid://b83pi8lpp4f5q" path="res://Scenes/LevelFinishFlag.tscn" id="5_wcgye"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2s4q4"]
 
@@ -21,9 +18,9 @@ size = Vector2(500, 9)
 
 [node name="RigidBody2D" parent="." node_paths=PackedStringArray("spawnLoc", "worldMap", "levelManager") instance=ExtResource("1_7bx8y")]
 position = Vector2(0, -265)
-mass = 5.0
-physics_material_override = SubResource("PhysicsMaterial_q3ya3")
-inertia = 400.0
+mass = 20.0
+inertia = 5000.0
+constant_force = Vector2(0, 5)
 spawnLoc = NodePath("../Spawn")
 worldMap = NodePath("../LevelContainer/Floor")
 levelManager = NodePath("../LevelContainer")
@@ -75,7 +72,11 @@ position = Vector2(-131, -47.08)
 shape = SubResource("RectangleShape2D_q3ya3")
 debug_color = Color(0.653603, 0.518009, 0, 0.42)
 
+[node name="LevelFinishFlag" parent="LevelContainer/Floor" instance=ExtResource("5_wcgye")]
+position = Vector2(447, 27)
+
 [node name="Spawn" type="Node2D" parent="."]
 position = Vector2(-1, -299)
 
 [connection signal="body_entered" from="LevelContainer/Floor/Spike" to="RigidBody2D" method="_on_spike_body_entered"]
+[connection signal="body_entered" from="LevelContainer/Floor/LevelFinishFlag" to="RigidBody2D" method="_on_level_finish_flag_body_entered"]
