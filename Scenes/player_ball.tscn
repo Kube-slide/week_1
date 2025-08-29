@@ -1,16 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0yno7gw5ifia"]
+[gd_scene load_steps=9 format=3 uid="uid://c0yno7gw5ifia"]
 
 [ext_resource type="Script" uid="uid://cf8lh7bt8e0n1" path="res://Scripts/ball_grounded_check.gd" id="1_nw751"]
+[ext_resource type="Texture2D" uid="uid://nnbhnugsog31" path="res://Assets/Pause.svg" id="2_k40wh"]
+[ext_resource type="Texture2D" uid="uid://bm6oiskpm8lij" path="res://Assets/Reset.svg" id="2_m38xh"]
+[ext_resource type="Texture2D" uid="uid://b763u8of4wo7x" path="res://Assets/Player.svg" id="4_d8u08"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rfcgh"]
 friction = 0.75
 bounce = 0.2
-
-[sub_resource type="SphereMesh" id="SphereMesh_rfcgh"]
-radius = 4.5
-height = 9.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_rfcgh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m38xh"]
 radius = 4.0
@@ -19,6 +16,9 @@ radius = 4.0
 offsets = PackedFloat32Array(0, 0.24, 0.533333, 0.753333, 1)
 colors = PackedColorArray(0, 1, 0, 1, 3.46541e-06, 0.72281, 0.662043, 1, 1, 0.380897, 0.604903, 1, 0.715562, 0.347957, 1, 1, 1, 0, 0, 1)
 metadata/_snap_count = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_rfcgh"]
+font_size = 60
 
 [node name="RigidBody2D" type="RigidBody2D"]
 collision_mask = 14
@@ -31,16 +31,6 @@ continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 999
 script = ExtResource("1_nw751")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-position = Vector2(-1.78814e-07, 0)
-scale = Vector2(0.889897, 0.888889)
-mesh = SubResource("SphereMesh_rfcgh")
-
-[node name="MeshInstance2D2" type="MeshInstance2D" parent="."]
-position = Vector2(-1.78814e-07, -3.27778)
-scale = Vector2(0.889897, 7.44444)
-mesh = SubResource("BoxMesh_rfcgh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_m38xh")
@@ -69,21 +59,79 @@ hue_variation_max = 0.65
 
 [node name="Loss" type="CPUParticles2D" parent="."]
 emitting = false
-amount = 30
+amount = 50
 lifetime = 0.5
 one_shot = true
 explosiveness = 0.8
 randomness = 0.19
 lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 1.0
 direction = Vector2(0, -300)
-initial_velocity_min = 118.91
-initial_velocity_max = 320.92
+initial_velocity_min = 61.59
+initial_velocity_max = 174.42
 angular_velocity_min = 132.15
 angular_velocity_max = 132.15
 scale_amount_min = 2.0
 scale_amount_max = 2.0
-color_ramp = SubResource("Gradient_rfcgh")
+color = Color(0.376471, 0.811765, 0.866667, 1)
 hue_variation_min = -0.79
 hue_variation_max = 0.65
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseScreen" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.298039)
+
+[node name="Label" type="Label" parent="CanvasLayer/PauseScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -105.0
+offset_top = 213.0
+offset_right = 106.0
+offset_bottom = 296.0
+grow_horizontal = 2
+text = "Paused"
+label_settings = SubResource("LabelSettings_rfcgh")
+
+[node name="Pause" type="Button" parent="CanvasLayer"]
+process_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -155.0
+offset_top = 58.0
+offset_right = 653.0
+offset_bottom = 866.0
+grow_horizontal = 0
+scale = Vector2(0.125, 0.125)
+theme_type_variation = &"FlatButton"
+icon = ExtResource("2_k40wh")
+
+[node name="Retry" type="Button" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.05
+anchor_bottom = 0.05
+offset_right = 808.0
+offset_bottom = 808.0
+scale = Vector2(0.125, 0.125)
+theme_type_variation = &"FlatButton"
+icon = ExtResource("2_m38xh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("4_d8u08")
+
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/Pause" to="." method="_on_pause_pressed"]
+[connection signal="pressed" from="CanvasLayer/Retry" to="." method="_on_retry_pressed"]

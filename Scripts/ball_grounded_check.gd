@@ -4,6 +4,7 @@ extends RigidBody2D
 @export var levelManager : Node2D
 @onready var winParticles : CPUParticles2D = $Win
 @onready var deathParticles : CPUParticles2D = $Loss
+@onready var pauseScreen : ColorRect = $CanvasLayer/PauseScreen
 
 @onready var deathTimer : Timer = $DeathTimer
 var deathFlag : bool = false
@@ -31,6 +32,7 @@ func _on_death_timer_timeout() -> void:
 
 func _on_spike_body_entered(_body: Node2D) -> void:
 	if !deathFlag:
+		deathParticles.emitting = true
 		deathFlag = true
 		linear_velocity = Vector2.ZERO
 		angular_velocity = 0
@@ -41,4 +43,19 @@ func _on_spike_body_entered(_body: Node2D) -> void:
 
 
 func _on_level_finish_flag_body_entered(body: Node2D) -> void:
+	set_deferred("freeze", true)
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0
+	rotation = 0
+	worldMap.rotationEnabled = false
+	worldMap.playerInputs = 0
 	winParticles.emitting = true
+
+
+func _on_retry_pressed() -> void:
+	_on_spike_body_entered(null)
+
+
+func _on_pause_pressed() -> void:
+	get_tree().paused = !get_tree().paused
+	pauseScreen.visible = !pauseScreen.visible

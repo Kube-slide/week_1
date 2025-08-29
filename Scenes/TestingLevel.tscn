@@ -26,7 +26,8 @@ worldMap = NodePath("../LevelContainer/Floor")
 levelManager = NodePath("../LevelContainer")
 
 [node name="Camera2D" type="Camera2D" parent="RigidBody2D"]
-zoom = Vector2(5, 5)
+position = Vector2(1, -1)
+zoom = Vector2(6, 6)
 position_smoothing_enabled = true
 position_smoothing_speed = 15.0
 rotation_smoothing_speed = 10.0

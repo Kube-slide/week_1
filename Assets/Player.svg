@@ -1,0 +1,15 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+	<title>Reset</title>
+	<style>
+		.s0 { fill: #60cfdd;stroke: #60cfdd;stroke-miterlimit:10 } 
+		.s1 { fill: #166670;stroke: #60cfdd;stroke-miterlimit:10 } 
+	</style>
+	<g id="Layer 1">
+		<path id="Shape 1" fill-rule="evenodd" class="s0" d="m400 790c-215.7 0-390-174.3-390-390 0-215.7 174.3-390 390-390 215.7 0 390 174.3 390 390 0 215.7-174.3 390-390 390z"/>
+		<g id="&lt;Group&gt;">
+			<path id="Shape 1 copy 2" fill-rule="evenodd" class="s1" d="m400 764c-201.3 0-364-162.7-364-364 0-201.3 162.7-364 364-364 201.3 0 364 162.7 364 364 0 201.3-162.7 364-364 364zm350-364c0-193.6-156.4-350-350-350-193.5 0-350 156.4-350 350 0 193.5 156.5 350 350 350 193.6 0 350-156.5 350-350z"/>
+			<path id="Shape 1 copy 2" fill-rule="evenodd" class="s1" d=""/>
+		</g>
+		<path id="Shape 2" fill-rule="evenodd" class="s1" d="m472 28v38.5h-144v-38.5z"/>
+	</g>
+</svg>

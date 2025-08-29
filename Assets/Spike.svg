@@ -1,0 +1,13 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+	<title>Reset</title>
+	<style>
+		.s0 { fill: #b93333;stroke: #b93333;stroke-miterlimit:10 } 
+		.s1 { fill: #760909;stroke: #b93333;stroke-miterlimit:10 } 
+		.s2 { fill: #ffffff;stroke: #b93333;stroke-miterlimit:10 } 
+	</style>
+	<g id="Layer 1">
+		<path id="Shape 1" fill-rule="evenodd" class="s0" d="m67 800h665.5l-333.4-758.5"/>
+		<path id="Shape 1 copy" fill-rule="evenodd" class="s1" d="m102 788h596.1l-298.6-679.4"/>
+		<path id="Shape 1 copy 2" fill-rule="evenodd" class="s2" d="m242 771h315.8l-158.2-360"/>
+	</g>
+</svg>
