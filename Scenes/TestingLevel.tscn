@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bo53d1qoxqmp8" path="res://Scenes/Spike.tscn" id="3_q3ya3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3ya3"]
-bounce = 0.15
+rough = true
+bounce = 0.2
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2s4q4"]
 
@@ -20,15 +21,15 @@ size = Vector2(500, 9)
 
 [node name="RigidBody2D" parent="." node_paths=PackedStringArray("spawnLoc", "worldMap", "levelManager") instance=ExtResource("1_7bx8y")]
 position = Vector2(0, -265)
+mass = 5.0
 physics_material_override = SubResource("PhysicsMaterial_q3ya3")
-linear_damp_mode = 1
-angular_damp_mode = 1
+inertia = 400.0
 spawnLoc = NodePath("../Spawn")
 worldMap = NodePath("../LevelContainer/Floor")
 levelManager = NodePath("../LevelContainer")
 
 [node name="Camera2D" type="Camera2D" parent="RigidBody2D"]
-zoom = Vector2(3, 3)
+zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 position_smoothing_speed = 15.0
 rotation_smoothing_speed = 10.0
@@ -42,7 +43,8 @@ collision_layer = 8
 collision_priority = 2.0
 physics_material_override = SubResource("PhysicsMaterial_2s4q4")
 script = ExtResource("1_3oome")
-rotateStrength = 60.0
+rotateStrength = 80.0
+rotateSmoothing = 4.0
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="LevelContainer/Floor"]
 mesh = SubResource("BoxMesh_3oome")
@@ -55,11 +57,25 @@ debug_color = Color(0.653603, 0.518009, 0, 0.42)
 [node name="Spike" parent="LevelContainer/Floor" instance=ExtResource("3_q3ya3")]
 position = Vector2(-177, -8.99997)
 
-[node name="Spike2" parent="LevelContainer/Floor" instance=ExtResource("3_q3ya3")]
-position = Vector2(109, -9)
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="LevelContainer/Floor"]
+position = Vector2(208, 39)
+mesh = SubResource("BoxMesh_3oome")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="LevelContainer/Floor"]
+position = Vector2(208, 38.92)
+shape = SubResource("RectangleShape2D_q3ya3")
+debug_color = Color(0.653603, 0.518009, 0, 0.42)
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="LevelContainer/Floor"]
+position = Vector2(-131, -47)
+mesh = SubResource("BoxMesh_3oome")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="LevelContainer/Floor"]
+position = Vector2(-131, -47.08)
+shape = SubResource("RectangleShape2D_q3ya3")
+debug_color = Color(0.653603, 0.518009, 0, 0.42)
 
 [node name="Spawn" type="Node2D" parent="."]
 position = Vector2(-1, -299)
 
 [connection signal="body_entered" from="LevelContainer/Floor/Spike" to="RigidBody2D" method="_on_spike_body_entered"]
-[connection signal="body_entered" from="LevelContainer/Floor/Spike2" to="RigidBody2D" method="_on_spike_body_entered"]
